@@ -1,0 +1,57 @@
+{
+	"name": "TargetSftp",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "DynamicSftp",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"sftphost": {
+					"value": "@dataset().sftphost",
+					"type": "Expression"
+				},
+				"sftpusername": {
+					"value": "@dataset().sftpusername",
+					"type": "Expression"
+				},
+				"sftppwd": {
+					"value": "@dataset().sftppwd",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"tgtfilepath": {
+				"type": "string",
+				"defaultValue": "wbapartner01"
+			},
+			"sftphost": {
+				"type": "string",
+				"defaultValue": "sftppartner01.blob.core.windows.net"
+			},
+			"sftpusername": {
+				"type": "string",
+				"defaultValue": "sftppartner01.partner01"
+			},
+			"sftppwd": {
+				"type": "string",
+				"defaultValue": "DWtFrFXWGA1oKytldg1E6d7LPuOEnec/"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "SftpLocation",
+				"folderPath": {
+					"value": "@dataset().tgtfilepath",
+					"type": "Expression"
+				}
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

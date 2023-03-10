@@ -1,0 +1,33 @@
+{
+	"name": "DynamicSftp",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"parameters": {
+			"sftphost": {
+				"type": "String",
+				"defaultValue": "sftppartner01.blob.core.windows.net"
+			},
+			"sftpusername": {
+				"type": "String",
+				"defaultValue": "sftppartner01.partner01"
+			},
+			"sftppwd": {
+				"type": "string",
+				"defaultValue": "DWtFrFXWGA1oKytldg1E6d7LPuOEnec/"
+			}
+		},
+		"annotations": [],
+		"type": "Sftp",
+		"typeProperties": {
+			"host": "@{linkedService().sftphost}",
+			"port": 22,
+			"skipHostKeyValidation": true,
+			"authenticationType": "Basic",
+			"userName": "@{linkedService().sftpusername}",
+			"password": {
+				"type": "SecureString",
+				"value": "**********"
+			}
+		}
+	}
+}

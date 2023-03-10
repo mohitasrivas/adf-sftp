@@ -1,0 +1,53 @@
+{
+	"name": "Config",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SourceStorageLinkedService",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "config.csv",
+				"container": "inputsftp"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "TgtOption",
+				"type": "String"
+			},
+			{
+				"name": "SrcRelPath",
+				"type": "String"
+			},
+			{
+				"name": "TgtRelSftpPath",
+				"type": "String"
+			},
+			{
+				"name": "SrcFileWildCard",
+				"type": "String"
+			},
+			{
+				"name": "sftphost",
+				"type": "String"
+			},
+			{
+				"name": "sftpusername",
+				"type": "String"
+			},
+			{
+				"name": "sftppwd",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

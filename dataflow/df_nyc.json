@@ -1,0 +1,38 @@
+{
+	"name": "df_nyc",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "InputNycParquet",
+						"type": "DatasetReference"
+					},
+					"name": "nycparquet"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "OutputNycParquet",
+						"type": "DatasetReference"
+					},
+					"name": "nycsink"
+				}
+			],
+			"transformations": [],
+			"scriptLines": [
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet') ~> nycparquet",
+				"nycparquet sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'parquet',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> nycsink"
+			]
+		}
+	}
+}

@@ -1,0 +1,77 @@
+{
+	"name": "AdfAnonymizerPipeline",
+	"properties": {
+		"activities": [
+			{
+				"name": "AnonymizerCustomActivity",
+				"type": "Custom",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"command": "cmd /c Powershell.exe -File CustomActivity.ps1 -FhirVersion R4",
+					"resourceLinkedService": {
+						"referenceName": "DestinationStorageLinkedService",
+						"type": "LinkedServiceReference"
+					},
+					"folderPath": "customactivitycontainer/R4.AdfApplication",
+					"extendedProperties": {
+						"sourceConnectionString": {
+							"value": "DefaultEndpointsProtocol=https;AccountName=mssampledata;AccountKey=BzeTPQKuSHCF0fbVVN9BN1q3SpuBUWVwNQKJ7T37bJcPbPiB4AnRCp8Wdw2l3P2VSjZPWSk8xxAG+ASteM5HwQ==;EndpointSuffix=core.windows.net",
+							"type": "Expression"
+						},
+						"destinationConnectionString": {
+							"value": "DefaultEndpointsProtocol=https;AccountName=msoutputstorage;AccountKey=uH9s4B0Bi/vv31MSGrREw0eGfhRbhMrmZWMn28cbsYagEMK3kWo1VQBuhdEX2hNp9KnOa2yAMGEm+ASthT+//A==;EndpointSuffix=core.windows.net",
+							"type": "Expression"
+						},
+						"skipExistedBlob": {
+							"value": "@pipeline().parameters.skipExistedBlob",
+							"type": "Expression"
+						}
+					},
+					"referenceObjects": {
+						"linkedServices": [
+							{
+								"referenceName": "SourceStorageLinkedService",
+								"type": "LinkedServiceReference"
+							},
+							{
+								"referenceName": "DestinationStorageLinkedService",
+								"type": "LinkedServiceReference"
+							}
+						],
+						"datasets": [
+							{
+								"referenceName": "InputDataset",
+								"type": "DatasetReference"
+							},
+							{
+								"referenceName": "OutputDataset",
+								"type": "DatasetReference"
+							}
+						]
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureBatchLinkedService",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"parameters": {
+			"skipExistedBlob": {
+				"type": "bool",
+				"defaultValue": false
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-12-09T00:42:55Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,19 @@
+{
+	"name": "InputDataset",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SourceStorageLinkedService",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"container": "inputfhir"
+			}
+		},
+		"schema": {}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

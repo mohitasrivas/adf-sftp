@@ -1,0 +1,44 @@
+{
+	"name": "TaxiDataParquet_WideColumns",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"linkedService": {
+						"referenceName": "SourceStorageLinkedService",
+						"type": "LinkedServiceReference"
+					},
+					"name": "TripFareSource"
+				}
+			],
+			"sinks": [
+				{
+					"linkedService": {
+						"referenceName": "SourceStorageLinkedService",
+						"type": "LinkedServiceReference"
+					},
+					"name": "TripFareSink"
+				}
+			],
+			"transformations": [],
+			"scriptLines": [
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet',",
+				"     container: 'inputparquet',",
+				"     folderPath: 'nycfinal/nycdf1',",
+				"     compressionCodec: 'snappy') ~> TripFareSource",
+				"TripFareSource sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'parquet',",
+				"     container: 'outputnycwide',",
+				"     folderPath: 'partitioned_trip_fair',",
+				"     compressionCodec: 'snappy',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> TripFareSink"
+			]
+		}
+	}
+}

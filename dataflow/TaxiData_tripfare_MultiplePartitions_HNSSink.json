@@ -1,0 +1,55 @@
+{
+	"name": "TaxiData_tripfare_MultiplePartitions_HNSSink",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"linkedService": {
+						"referenceName": "AzureDataLakeStorage1",
+						"type": "LinkedServiceReference"
+					},
+					"name": "TripFare",
+					"description": "Import data from AzureDataLakeStorage1"
+				}
+			],
+			"sinks": [
+				{
+					"linkedService": {
+						"referenceName": "MitraGen2",
+						"type": "LinkedServiceReference"
+					},
+					"name": "TripFareSink"
+				}
+			],
+			"transformations": [],
+			"scriptLines": [
+				"source(useSchema: false,",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'delimited',",
+				"     fileSystem: 'taxidata',",
+				"     folderPath: 'trip_fare',",
+				"     columnDelimiter: ',',",
+				"     escapeChar: '\\\\',",
+				"     quoteChar: '\\\"',",
+				"     columnNamesAsHeader: false) ~> TripFare",
+				"TripFare sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'delimited',",
+				"     fileSystem: 'taxidata',",
+				"     folderPath: 'partitioned_trip_fair',",
+				"     columnDelimiter: ',',",
+				"     escapeChar: '\\\\',",
+				"     quoteChar: '\\\"',",
+				"     columnNamesAsHeader: true,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> TripFareSink"
+			]
+		}
+	}
+}

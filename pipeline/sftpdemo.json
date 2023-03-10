@@ -1,0 +1,125 @@
+{
+	"name": "sftpdemo",
+	"properties": {
+		"activities": [
+			{
+				"name": "CopyToSftp",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"wildcardFolderPath": "wbapartner01",
+							"wildcardFileName": {
+								"value": "@variables('SrcFileWildCard')",
+								"type": "Expression"
+							},
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "SftpWriteSettings",
+							"operationTimeout": "01:00:00",
+							"useTempFileRename": true
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ""
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SrcInputSftp",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "TargetSftp",
+						"type": "DatasetReference",
+						"parameters": {
+							"tgtfilepath": {
+								"value": "@variables('TgtRelSftpPath')",
+								"type": "Expression"
+							},
+							"sftphost": {
+								"value": "@variables('sftphost')",
+								"type": "Expression"
+							},
+							"sftpusername": {
+								"value": "@variables('sftpusername')",
+								"type": "Expression"
+							},
+							"sftppwd": {
+								"value": "@variables('sftppwd')",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"TgtOption": {
+				"type": "string",
+				"defaultValue": "01"
+			}
+		},
+		"variables": {
+			"SrcRelPath": {
+				"type": "String",
+				"defaultValue": "wbapartner01"
+			},
+			"TgtRelSftpPath": {
+				"type": "String",
+				"defaultValue": "wbapartner01"
+			},
+			"SrcFileWildCard": {
+				"type": "String",
+				"defaultValue": "*.csv"
+			},
+			"sftphost": {
+				"type": "String",
+				"defaultValue": "sftppartner02.blob.core.windows.net"
+			},
+			"sftpusername": {
+				"type": "String",
+				"defaultValue": "sftppartner02.parnter02"
+			},
+			"sftppwd": {
+				"type": "String",
+				"defaultValue": "bwpYhUmalucKPdrd11nlU/pfGYaQYYTu"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2023-03-10T17:03:04Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

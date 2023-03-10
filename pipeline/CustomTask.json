@@ -1,0 +1,39 @@
+{
+	"name": "CustomTask",
+	"properties": {
+		"activities": [
+			{
+				"name": "Custom1",
+				"type": "Custom",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"command": "cmd /c echo hello world",
+					"resourceLinkedService": {
+						"referenceName": "DestinationStorageLinkedService",
+						"type": "LinkedServiceReference"
+					},
+					"folderPath": "customactivitycontainer",
+					"referenceObjects": {
+						"linkedServices": [],
+						"datasets": []
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureBatchLinkedService",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2022-12-08T21:20:38Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

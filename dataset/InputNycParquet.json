@@ -1,0 +1,21 @@
+{
+	"name": "InputNycParquet",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SourceStorageLinkedService",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"folderPath": "nyc",
+				"container": "inputparquet"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
